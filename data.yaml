@@ -1,0 +1,6 @@
+path: data
+train: images/train
+val: images/val
+
+nc: 4
+names: ['10q', '20q', '50q', '5q']
