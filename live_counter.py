@@ -1,4 +1,5 @@
 import cv2
+import math
 from detect.utils import load_model, count_coins, calculate_total
 
 model = load_model()
@@ -14,7 +15,7 @@ while True:
     if not ret:
         break
 
-    results = model(frame, stream=True, conf=0.55)
+    results = model(frame, stream=True)
     coin_counts = {class_names[i]: 0 for i in class_names}
 
     for result in results:
@@ -25,7 +26,7 @@ while True:
 
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             cv2.rectangle(frame, (x1,y1), (x2,y2), (0,255,0), 2)
-            cv2.putText(frame, f"{label}", (x1,y1-5),
+            cv2.putText(frame, f"{label}", (max(0,x1),max(0,y1+20)),
             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2)
 
     total = calculate_total(coin_counts)
