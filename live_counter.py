@@ -15,7 +15,7 @@ while True:
     if not ret:
         break
 
-    results = model(frame, stream=True)
+    results = model(frame, conf=0.5, stream=True)  
     coin_counts = {class_names[i]: 0 for i in class_names}
 
     for result in results:
@@ -35,6 +35,8 @@ while True:
     cv2.imshow("Coin Counter", frame)
     if cv2.waitKey(1)==ord('q'):
         break
+
+    
 
 cap.release()
 cv2.destroyAllWindows()
